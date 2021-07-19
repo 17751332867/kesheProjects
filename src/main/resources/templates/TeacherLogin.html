@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div th:replace="~{biankuangT::head}"></div>
+    <div th:replace="~{biankuangT::rightlink}"></div>
+    <div class="layui-body">
+    <h1>教师登录</h1>
+    </div>
+</div>
+<script src="./layui/layui.js"></script>
+<script th:replace="~{biankuangT::scr}"></script>
+</body>
+</html>

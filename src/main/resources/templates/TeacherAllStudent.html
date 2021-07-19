@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./layui/css/layui.css">
+</head>
+<body>
+<div class="layui-layout layui-layout-admin">
+    <div th:replace="~{biankuangT::head}"></div>
+    <div th:replace="~{biankuangT::rightlink}"></div>
+    <div class="layui-body">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>学号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>联系方式</th>
+                <th>课设题目</th>
+                <th>    </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="s,StudentDate:${session.AllStudent}">
+                <td th:text="${s.getStudentID()}"></td>
+                <td th:text="${s.getName()}"></td>
+                <td th:text="${s.getSex()}"></td>
+                <td th:text="${s.getPhonenumber()}"></td>
+                <td ></td>
+                <td><a th:href="@{deleteS(id=${s.getStudentID()})}">删除</a>   <p>查看</p> </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="./layui/layui.js" th:inline="none"></script>
+<script th:replace="~{biankuangT::scr}"></script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lut.keshe.dao.StudentMapper" >
+  <resultMap id="BaseResultMap" type="com.lut.keshe.pojo.Student" >
+    <constructor >
+      <idArg column="studentID" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="name" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="sex" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="specialty" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="banji" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="phonenumber" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="email" jdbcType="CHAR" javaType="java.lang.String" />
+      <arg column="qqnumber" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    studentID, name, sex, specialty, banji, phonenumber, email, qqnumber
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.lut.keshe.pojo.StudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where studentID = #{studentID,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from student
+    where studentID = #{studentID,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.lut.keshe.pojo.StudentExample" >
+    delete from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.lut.keshe.pojo.Student" >
+    insert into student (studentID, name, sex, 
+      specialty, banji, phonenumber, 
+      email, qqnumber)
+    values (#{studentID,jdbcType=INTEGER}, #{name,jdbcType=CHAR}, #{sex,jdbcType=CHAR}, 
+      #{specialty,jdbcType=CHAR}, #{banji,jdbcType=CHAR}, #{phonenumber,jdbcType=CHAR}, 
+      #{email,jdbcType=CHAR}, #{qqnumber,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lut.keshe.pojo.Student" >
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="studentID != null" >
+        studentID,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="specialty != null" >
+        specialty,
+      </if>
+      <if test="banji != null" >
+        banji,
+      </if>
+      <if test="phonenumber != null" >
+        phonenumber,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="qqnumber != null" >
+        qqnumber,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="studentID != null" >
+        #{studentID,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=CHAR},
+      </if>
+      <if test="specialty != null" >
+        #{specialty,jdbcType=CHAR},
+      </if>
+      <if test="banji != null" >
+        #{banji,jdbcType=CHAR},
+      </if>
+      <if test="phonenumber != null" >
+        #{phonenumber,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=CHAR},
+      </if>
+      <if test="qqnumber != null" >
+        #{qqnumber,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.lut.keshe.pojo.StudentExample" resultType="java.lang.Integer" >
+    select count(*) from student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update student
+    <set >
+      <if test="record.studentID != null" >
+        studentID = #{record.studentID,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=CHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=CHAR},
+      </if>
+      <if test="record.specialty != null" >
+        specialty = #{record.specialty,jdbcType=CHAR},
+      </if>
+      <if test="record.banji != null" >
+        banji = #{record.banji,jdbcType=CHAR},
+      </if>
+      <if test="record.phonenumber != null" >
+        phonenumber = #{record.phonenumber,jdbcType=CHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=CHAR},
+      </if>
+      <if test="record.qqnumber != null" >
+        qqnumber = #{record.qqnumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update student
+    set studentID = #{record.studentID,jdbcType=INTEGER},
+      name = #{record.name,jdbcType=CHAR},
+      sex = #{record.sex,jdbcType=CHAR},
+      specialty = #{record.specialty,jdbcType=CHAR},
+      banji = #{record.banji,jdbcType=CHAR},
+      phonenumber = #{record.phonenumber,jdbcType=CHAR},
+      email = #{record.email,jdbcType=CHAR},
+      qqnumber = #{record.qqnumber,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.lut.keshe.pojo.Student" >
+    update student
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=CHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=CHAR},
+      </if>
+      <if test="specialty != null" >
+        specialty = #{specialty,jdbcType=CHAR},
+      </if>
+      <if test="banji != null" >
+        banji = #{banji,jdbcType=CHAR},
+      </if>
+      <if test="phonenumber != null" >
+        phonenumber = #{phonenumber,jdbcType=CHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=CHAR},
+      </if>
+      <if test="qqnumber != null" >
+        qqnumber = #{qqnumber,jdbcType=INTEGER},
+      </if>
+    </set>
+    where studentID = #{studentID,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lut.keshe.pojo.Student" >
+    update student
+    set name = #{name,jdbcType=CHAR},
+      sex = #{sex,jdbcType=CHAR},
+      specialty = #{specialty,jdbcType=CHAR},
+      banji = #{banji,jdbcType=CHAR},
+      phonenumber = #{phonenumber,jdbcType=CHAR},
+      email = #{email,jdbcType=CHAR},
+      qqnumber = #{qqnumber,jdbcType=INTEGER}
+    where studentID = #{studentID,jdbcType=INTEGER}
+  </update>
+</mapper>
